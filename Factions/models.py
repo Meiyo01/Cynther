@@ -10,21 +10,21 @@ class Government(models.Model):
     ]
     name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250)
-    monarch = models.CharField(max_length=250)
+    monarch = models.CharField(max_length=250, default='Unknown')
     formed = models.PositiveIntegerField(default=2000, validators=[
         MinValueValidator(2000),
         MaxValueValidator(datetime.datetime.now().year)
     ])
     status = models.CharField(max_length=250, choices=stats)
-    bio = models.TextField()
+    info = models.TextField()
     objects = models.Manager()
     
 
     class Meta:
-        db_table = Government
-        ordering = ('-formed')
-        verbose_name = _("Government")
-        verbose_name_plural = _("Governments")
+        db_table = 'Government'
+        ordering = ('-formed',)
+        verbose_name = ("Government")
+        verbose_name_plural = ("Governments")
     
     def _init__(self):
         return self.name
@@ -85,7 +85,8 @@ class Empire(models.Model):
     monarch = models.CharField(max_length=250)
     strength = models.CharField(max_length=50, choices=power, default='E')
     reputation = models.CharField(max_length=20, choices=rep, default='normal')
-    government = models.ForeignKey(Government, on_delete=models.CASCADE, default=self)
+    government = models.ForeignKey(Government, on_delete=models.CASCADE, default='self')
+    info = models.TextField()
     platform = models.CharField(max_length=50, choices=plat)
     status = models.CharField( max_length=40, choices=act, default='active')
     objects = models.Manager()
@@ -93,11 +94,11 @@ class Empire(models.Model):
 
     class Meta:
         db_table = 'Empires'
-        ordering = ('strength')
-        verbose_name = _("Empire")
-        verbose_name_plural = _("Empires")
+        ordering = ('strength',)
+        verbose_name = ("Empire")
+        verbose_name_plural = ("Empires")
     
-    def __init__(self):
+    def _init__(self):
         return self.name
 
     def __str__(self):
@@ -115,17 +116,17 @@ class Empire(models.Model):
         return related_fields
     
     
-    class Clan(models.Model):
-        power = [
-        ('I','Irrelevant'),
-        ('H','Feeble'),
-        ('G','Weak'),
-        ('F','Limited'),
-        ('E','Influential'),
-        ('D','Strong'),
-        ('C','Ascendant'),
-        ('B','Superpower'),
-        ('A','Godly'),
+class Clan(models.Model):
+    power = [
+    ('I','Irrelevant'),
+    ('H','Feeble'),
+    ('G','Weak'),
+    ('F','Limited'),
+    ('E','Influential'),
+    ('D','Strong'),
+    ('C','Ascendant'),
+    ('B','Superpower'),
+    ('A','Godly'),
     ]
     plat = [
         ('A', 'Facebook'),
@@ -156,7 +157,8 @@ class Empire(models.Model):
     monarch = models.CharField(max_length=250)
     strength = models.CharField(max_length=50, choices=power, default='E')
     reputation = models.CharField(max_length=20, choices=rep, default='normal')
-    government = models.ForeignKey(Empire, on_delete=models.CASCADE, default=self)
+    government = models.ForeignKey(Empire, on_delete=models.CASCADE, default='self')
+    info = models.TextField()
     platform = models.CharField(max_length=50, choices=plat)
     status = models.CharField( max_length=40, choices=act, default='active')
     objects = models.Manager()
@@ -164,9 +166,9 @@ class Empire(models.Model):
 
     class Meta:
         db_table = 'Clans'
-        ordering = ('strength')
-        verbose_name = _("Clan")
-        verbose_name_plural = _("Clans")
+        ordering = ('strength',)
+        verbose_name = ("Clan")
+        verbose_name_plural = ("Clans")
     
     def __init__(self):
         return self.name
