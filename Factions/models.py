@@ -3,6 +3,9 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+def __str__(self):
+    return self.name
+
 class Government(models.Model):
     stats = [
         ('active', 'Active'),
@@ -85,7 +88,7 @@ class Empire(models.Model):
     monarch = models.CharField(max_length=250)
     strength = models.CharField(max_length=50, choices=power, default='E')
     reputation = models.CharField(max_length=20, choices=rep, default='normal')
-    government = models.ForeignKey(Government, on_delete=models.CASCADE, default='self')
+    government = models.ForeignKey(Government, on_delete=models.CASCADE, default=None)
     info = models.TextField()
     platform = models.CharField(max_length=50, choices=plat)
     status = models.CharField( max_length=40, choices=act, default='active')
@@ -157,7 +160,7 @@ class Clan(models.Model):
     monarch = models.CharField(max_length=250)
     strength = models.CharField(max_length=50, choices=power, default='E')
     reputation = models.CharField(max_length=20, choices=rep, default='normal')
-    government = models.ForeignKey(Empire, on_delete=models.CASCADE, default='self')
+    government = models.ForeignKey(Empire, on_delete=models.CASCADE, default=None)
     info = models.TextField()
     platform = models.CharField(max_length=50, choices=plat)
     status = models.CharField( max_length=40, choices=act, default='active')
