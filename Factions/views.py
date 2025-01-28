@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.views.generic import ListView
 from .models import Government
 
-def Government_list(request):
-    gov = Government.objects.all()
-    return render (request,
-                   'Factions/Governments/list.html',
-                   {'Government': gov})
+class GovernmentListView(ListView):
+    queryset = Government.objects.all()
+    context_object_name = 'Faction'
+    paginate_by = 3
+    template_name = 'Factions/Governments/list.html'
