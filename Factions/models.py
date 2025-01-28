@@ -1,4 +1,5 @@
 import datetime
+from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -12,7 +13,7 @@ class Government(models.Model):
         ('inactive', 'Inactive'),
     ]
     name = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250)
+    slug = models.SlugField(max_length=250, unique_for_date='added')
     monarch = models.CharField(max_length=250, default='Unknown')
     formed = models.PositiveIntegerField(default=2000, validators=[
         MinValueValidator(2000),
@@ -21,6 +22,7 @@ class Government(models.Model):
     status = models.CharField(max_length=250, choices=stats)
     info = models.TextField()
     objects = models.Manager()
+    added = models.DateTimeField(default=timezone.now)
     
 
     class Meta:
@@ -36,7 +38,12 @@ class Government(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("Government_detail", kwargs={"pk": self.pk})
+        return reverse("Factions:Government_detail", args=[
+            self.added.year,
+            self.added.month,
+            self.added.day,
+            self.slug,
+        ])
     
     @classmethod
     def ref(cls):
