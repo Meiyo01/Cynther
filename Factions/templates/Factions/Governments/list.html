@@ -1,0 +1,7 @@
+{% extends 'Factions/base.html' %}
+{% block title %} LUCIDIEN | Governments {% endblock %}
+{% block content %}
+{% for Government in Government%}
+<p> {{Government.name}} </p>
+{% endfor %}
+{% endblock %}

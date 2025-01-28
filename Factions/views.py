@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Government
 
-# Create your views here.
+def Government_list(request):
+    gov = Government.objects.all()
+    return render (request,
+                   'Factions/Governments/list.html',
+                   {'Government': gov})
