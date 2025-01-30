@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} Lucidien {% endblock %}
+{% block content %}
+{% for Post in Post %}
+<div id="content">
+    <p> {{Post.title}} by {{Post.author}}</p>
+    <p> {{Post.body}} </p>
+</div>
+{% endfor %}
+{% endblock %}

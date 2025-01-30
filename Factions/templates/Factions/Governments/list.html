@@ -1,8 +1,0 @@
-{% extends 'Factions/base.html' %}
-{% block title %} LUCIDIEN | Governments {% endblock %}
-{% block content %}
-hey
-{% for Government in Government %}
-<a href="{{ Government.get_absolute_url }}"><p> {{ Government.name }} </p></a>
-{% endfor %}
-{% endblock %}

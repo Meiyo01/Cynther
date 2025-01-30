@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>{% block title %}{% endblock%}</title>
+        <link rel="icon" typpe="image/x-icon" href="{% static 'images/lucidien.ico' %}"  />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    </head>
+    <body>
+        <div>
+            <div id="head">
+                    <a href="{% url "Factions:home" %}" style="text-decoration: none">
+                        <img src={% static 'images/lucidien.ico' %} />
+                        <h2>Lucidien</h2>
+                    </a>
+            </div>
+            <div id="bar">
+                <nav>
+                    <i class="material-icons"><a href="{% url "Factions:government_list" %}" style="text-decoration: none">account_balance</a></i>
+                    <i class="material-icons"><a href="" style="text-decoration: none">castle</a></i>
+                    <i class="material-icons"><a href="" style="text-decoration: none">handshake</a></i>
+                    <i class="material-icons">info</i>
+                </nav>
+            </div>
+        </div>
+        <div id="vassal">
+            {% block content %}{% endblock %}
+        </div>
+</html>

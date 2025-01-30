@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %} Lucidien | Clans {% endblock %}
+{% block content %}
+{% for Clan in Clan %}
+<div id="content">
+    <p> {{Clan.name}} formed {{ Clan.formed}}</p>
+</div>
+{% endfor %}
+{% endblock %}

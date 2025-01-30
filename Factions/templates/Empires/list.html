@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Lucidien | Empires {% endblock %}
+{% block content %}
+{% for Empire in Empire %}
+<a href="{{ Empire.get_absolute_url }}">
+    <div id="content">
+        <p> {{Empire.name}} formed {{ Empire.formed}}</p>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}
